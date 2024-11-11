@@ -178,6 +178,8 @@ namespace MediaTekDocuments.view
             this.label53 = new System.Windows.Forms.Label();
             this.label54 = new System.Windows.Forms.Label();
             this.btnReceptionRechercher = new System.Windows.Forms.Button();
+            this.tabPageGestion = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabOngletsApplication.SuspendLayout();
             this.tabLivres.SuspendLayout();
             this.grpLivresInfos.SuspendLayout();
@@ -201,6 +203,7 @@ namespace MediaTekDocuments.view
             ((System.ComponentModel.ISupportInitialize)(this.pcbReceptionExemplaireRevueImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceptionExemplairesListe)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbReceptionRevueImage)).BeginInit();
+            this.tabPageGestion.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabOngletsApplication
@@ -209,6 +212,7 @@ namespace MediaTekDocuments.view
             this.tabOngletsApplication.Controls.Add(this.tabDvd);
             this.tabOngletsApplication.Controls.Add(this.tabRevues);
             this.tabOngletsApplication.Controls.Add(this.tabReceptionRevue);
+            this.tabOngletsApplication.Controls.Add(this.tabPageGestion);
             this.tabOngletsApplication.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabOngletsApplication.ItemSize = new System.Drawing.Size(49, 18);
             this.tabOngletsApplication.Location = new System.Drawing.Point(0, 0);
@@ -1508,6 +1512,7 @@ namespace MediaTekDocuments.view
             this.dtpReceptionExemplaireDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpReceptionExemplaireDate.Location = new System.Drawing.Point(150, 45);
             this.dtpReceptionExemplaireDate.Name = "dtpReceptionExemplaireDate";
+            this.dtpReceptionExemplaireDate.ShowUpDown = true;
             this.dtpReceptionExemplaireDate.Size = new System.Drawing.Size(100, 20);
             this.dtpReceptionExemplaireDate.TabIndex = 1;
             // 
@@ -1776,6 +1781,27 @@ namespace MediaTekDocuments.view
             this.btnReceptionRechercher.UseVisualStyleBackColor = true;
             this.btnReceptionRechercher.Click += new System.EventHandler(this.btnReceptionRechercher_Click);
             // 
+            // tabPageGestion
+            // 
+            this.tabPageGestion.Controls.Add(this.button1);
+            this.tabPageGestion.Location = new System.Drawing.Point(4, 22);
+            this.tabPageGestion.Name = "tabPageGestion";
+            this.tabPageGestion.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGestion.Size = new System.Drawing.Size(875, 633);
+            this.tabPageGestion.TabIndex = 5;
+            this.tabPageGestion.Text = "Gestion";
+            this.tabPageGestion.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(265, 193);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(244, 68);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Afficher page des gestions";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FrmMediatek
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1815,6 +1841,7 @@ namespace MediaTekDocuments.view
             ((System.ComponentModel.ISupportInitialize)(this.pcbReceptionExemplaireRevueImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceptionExemplairesListe)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pcbReceptionRevueImage)).EndInit();
+            this.tabPageGestion.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1970,6 +1997,8 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.TabPage tabPageGestion;
+        private System.Windows.Forms.Button button1;
     }
 }
 

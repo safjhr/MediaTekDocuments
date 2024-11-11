@@ -139,6 +139,7 @@ namespace MediaTekDocuments.dal
         public List<Exemplaire> GetExemplairesRevue(string idDocument)
         {
             String jsonIdDocument = convertToJson("id", idDocument);
+            Console.WriteLine(uriApi + "exemplaire/" + jsonIdDocument);
             List<Exemplaire> lesExemplaires = TraitementRecup<Exemplaire>(GET, "exemplaire/" + jsonIdDocument, null);
             return lesExemplaires;
         }
@@ -243,6 +244,7 @@ namespace MediaTekDocuments.dal
                 serializer.Serialize(writer, value);
             }
         }
+
 
     }
 }

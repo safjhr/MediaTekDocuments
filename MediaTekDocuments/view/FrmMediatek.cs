@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Drawing;
 using System.IO;
+using MediaTekDocuments.dal;
+
 
 namespace MediaTekDocuments.view
 
@@ -1238,6 +1240,20 @@ namespace MediaTekDocuments.view
                 pcbReceptionExemplaireRevueImage.Image = null;
             }
         }
+
+
+
+        #endregion
+
+        #region Onglet Gestion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmGestion frmGestion = new FrmGestion();
+            frmGestion.Show();
+        }
+
         #endregion
     }
+
 }

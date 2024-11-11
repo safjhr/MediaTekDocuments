@@ -82,9 +82,9 @@ namespace MediaTekDocuments.controller
         /// </summary>
         /// <param name="idDocuement">id de la revue concernée</param>
         /// <returns>Liste d'objets Exemplaire</returns>
-        public List<Exemplaire> GetExemplairesRevue(string idDocuement)
+        public List<Exemplaire> GetExemplairesRevue(string idDocument)
         {
-            return access.GetExemplairesRevue(idDocuement);
+            return access.GetExemplairesRevue(idDocument);
         }
 
         /// <summary>
@@ -96,5 +96,9 @@ namespace MediaTekDocuments.controller
         {
             return access.CreerExemplaire(exemplaire);
         }
+
+      
+
+       
     }
 }

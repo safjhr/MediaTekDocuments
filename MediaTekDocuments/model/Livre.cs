@@ -6,6 +6,7 @@ namespace MediaTekDocuments.model
     /// </summary>
     public class Livre : LivreDvd
     {
+        public string Id { get; }
         public string Isbn { get; }
         public string Auteur { get; }
         public string Collection { get; }
@@ -14,6 +15,7 @@ namespace MediaTekDocuments.model
             string idGenre, string genre, string idPublic, string lePublic, string idRayon, string rayon)
             : base(id, titre, image, idGenre, genre, idPublic, lePublic, idRayon, rayon)
         {
+            this.Id = id;
             this.Isbn = isbn;
             this.Auteur = auteur;
             this.Collection = collection;
