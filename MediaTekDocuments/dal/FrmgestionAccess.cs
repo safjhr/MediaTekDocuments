@@ -15,6 +15,8 @@ namespace MediaTekDocuments.dal
         private readonly ApiRest api = null;
         private const string GET = "GET";
         private const string POST = "POST";
+        private const string PUT = "PUT";
+        private const string DELETE = "DELETE";
         private FrmgestionAccess()
         {
             String authenticationString;
@@ -110,6 +112,80 @@ namespace MediaTekDocuments.dal
             }
             return false;
         }
+
+        public bool ModifierDetailCommande(DetailsCommande detailsCommande)
+        {
+            string jsonDetailCommande = JsonConvert.SerializeObject(detailsCommande, new CustomDateTimeConverter());
+            Console.WriteLine(uriApi + "detailcommande?champs=" + jsonDetailCommande);
+            try
+            {
+                List<DetailsCommande> liste = TraitementRecup<DetailsCommande>(PUT, "detailcommande", "champs=" + jsonDetailCommande);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        public bool SupprimerDetailCommande(DetailsCommande detailsCommande)
+        {
+            string jsonDetailCommande = JsonConvert.SerializeObject(detailsCommande, new CustomDateTimeConverter());
+            Console.WriteLine(uriApi + "detailcommande/" + jsonDetailCommande);
+            try
+            {
+                List<DetailsCommande> liste = TraitementRecup<DetailsCommande>(DELETE, "detailcommande/" + jsonDetailCommande, null);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        public List<DetailsAbonnement> GetDetailAbonnement(string idRevue)
+        {
+            String jsonIdRevue = convertToJson("idRevue", idRevue);
+            Console.WriteLine(uriApi + "detailabonnement/" + jsonIdRevue);
+            List<DetailsAbonnement> lesDetailAbonnements = TraitementRecup<DetailsAbonnement>(GET, "detailabonnement/" + jsonIdRevue, null);
+            return lesDetailAbonnements;
+        }
+
+        public bool CreerDetailAbonnement(DetailsAbonnement detailsAbonnement)
+        {
+            string jsonDetailAbonnement = JsonConvert.SerializeObject(detailsAbonnement, new CustomDateTimeConverter());
+            Console.WriteLine(uriApi + "detailabonnement?champs=" + jsonDetailAbonnement);
+            try
+            {
+                List<DetailsAbonnement> liste = TraitementRecup<DetailsAbonnement>(POST, "detailabonnement", "champs=" + jsonDetailAbonnement);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+        public bool SupprimerDetailAbonnement(DetailsAbonnement detailsAbonnement)
+        {
+            string jsonDetailAbonnement = JsonConvert.SerializeObject(detailsAbonnement, new CustomDateTimeConverter());
+            Console.WriteLine(uriApi + "detailabonnement/" + jsonDetailAbonnement);
+            try
+            {
+                List<DetailsAbonnement> liste = TraitementRecup<DetailsAbonnement>(DELETE, "detailabonnement/" + jsonDetailAbonnement, null);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
+
+
 
         private List<T> TraitementRecup<T>(String methode, String message, String parametres)
         {

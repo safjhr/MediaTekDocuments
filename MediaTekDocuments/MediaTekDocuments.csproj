@@ -105,6 +105,7 @@
     <Compile Include="dal\Access.cs" />
     <Compile Include="model\Commande.cs" />
     <Compile Include="model\CommandeDocument.cs" />
+    <Compile Include="model\DetailsAbonnement.cs" />
     <Compile Include="model\DetailsCommande.cs" />
     <Compile Include="model\Suivi.cs" />
     <Compile Include="view\FrmGestion.cs">

@@ -1,6 +1,11 @@
 ﻿using System.Collections.Generic;
 using MediaTekDocuments.model;
 using MediaTekDocuments.dal;
+using System;
+using System.Collections.Generic;
+using System.Linq;  // Ajoutez cette ligne pour accéder aux méthodes LINQ
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MediaTekDocuments.controller
 {
@@ -72,6 +77,48 @@ namespace MediaTekDocuments.controller
             return frmgestionaccess.CreerDetailCommande(detailsCommande);
         }
 
-        
+
+        public bool ModifierDetailCommande(DetailsCommande detailsCommande)
+        {
+            return frmgestionaccess.ModifierDetailCommande(detailsCommande);
+        }
+
+        public bool SupprimerDetailCommande(DetailsCommande detailsCommande)
+        {
+            return frmgestionaccess.SupprimerDetailCommande(detailsCommande);
+        }
+
+        public List<DetailsAbonnement> GetDetailAbonnement(string idRevue)
+        {
+            return frmgestionaccess.GetDetailAbonnement(idRevue);
+
+        }
+
+        public bool CreerDetailAbonnement(DetailsAbonnement detailsAbonnement)
+        {
+            return frmgestionaccess.CreerDetailAbonnement(detailsAbonnement);
+        }
+
+        public bool SupprimerDetailAbonnement(DetailsAbonnement detailsAbonnement)
+        {
+            return frmgestionaccess.SupprimerDetailAbonnement(detailsAbonnement);
+        }
+
+        public List<DetailsAbonnement> ObtenirRevuesALerter(string idRevue)
+        {
+            // Récupérer toutes les revues
+            List<DetailsAbonnement> toutesLesAbonnements = FrmgestionAccess.GetInstance().GetDetailAbonnement(idRevue);
+
+            // Filtrer les revues dont l'abonnement se termine dans moins de 30 jours
+            DateTime dateLimite = DateTime.Now.AddDays(30).Date; // Date limite sans heure
+
+            // Filtrer et trier les revues
+            List<DetailsAbonnement> AbonnementALerter = toutesLesAbonnements
+                .Where(r => r.DateFinAbonnement.HasValue && r.DateFinAbonnement.Value.Date <= dateLimite)  // Vérifier si la date est non nulle puis accéder à sa valeur
+                .OrderBy(r => r.DateFinAbonnement.Value)  // Accéder à la valeur de DateFinAbonnement
+                .ToList();
+
+            return AbonnementALerter;
+        }
     }
 }
