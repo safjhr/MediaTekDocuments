@@ -179,7 +179,7 @@ namespace MediaTekDocuments.view
             this.label54 = new System.Windows.Forms.Label();
             this.btnReceptionRechercher = new System.Windows.Forms.Button();
             this.tabPageGestion = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btngestion = new System.Windows.Forms.Button();
             this.tabOngletsApplication.SuspendLayout();
             this.tabLivres.SuspendLayout();
             this.grpLivresInfos.SuspendLayout();
@@ -1783,7 +1783,7 @@ namespace MediaTekDocuments.view
             // 
             // tabPageGestion
             // 
-            this.tabPageGestion.Controls.Add(this.button1);
+            this.tabPageGestion.Controls.Add(this.btngestion);
             this.tabPageGestion.Location = new System.Drawing.Point(4, 22);
             this.tabPageGestion.Name = "tabPageGestion";
             this.tabPageGestion.Padding = new System.Windows.Forms.Padding(3);
@@ -1792,15 +1792,15 @@ namespace MediaTekDocuments.view
             this.tabPageGestion.Text = "Gestion";
             this.tabPageGestion.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btngestion
             // 
-            this.button1.Location = new System.Drawing.Point(265, 193);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(244, 68);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Afficher page des gestions";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btngestion.Location = new System.Drawing.Point(265, 193);
+            this.btngestion.Name = "btngestion";
+            this.btngestion.Size = new System.Drawing.Size(244, 68);
+            this.btngestion.TabIndex = 0;
+            this.btngestion.Text = "Afficher page des gestions";
+            this.btngestion.UseVisualStyleBackColor = true;
+            this.btngestion.Click += new System.EventHandler(this.button1_Click);
             // 
             // FrmMediatek
             // 
@@ -1998,7 +1998,7 @@ namespace MediaTekDocuments.view
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.TabPage tabPageGestion;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btngestion;
     }
 }
 

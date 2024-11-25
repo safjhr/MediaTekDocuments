@@ -735,7 +735,6 @@ namespace MediaTekDocuments.view
                         message.AppendLine($"{detailsAbonnement.IdRevue} - Fin le: {detailsAbonnement.DateFinAbonnement.Value.ToString("dd/MM/yyyy")}");
                     }
 
-                    // Afficher l'alerte
                     MessageBox.Show(message.ToString(), "Alerte : Abonnement à venir", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else

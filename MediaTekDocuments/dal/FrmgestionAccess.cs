@@ -185,7 +185,29 @@ namespace MediaTekDocuments.dal
             return false;
         }
 
+        public bool GetAllUtilisateur(Utilisateur utilisateur)
+        {
+            string jsonUtilisateur = JsonConvert.SerializeObject(utilisateur);
+            Console.WriteLine(uriApi + "utilisateur/" + jsonUtilisateur);
+            try
+            {
+                List<Utilisateur> liste = TraitementRecup<Utilisateur>(GET, "utilisateur/" + jsonUtilisateur, null);
+                return (liste.Count > 0);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
+        }
 
+        public List<Service> GetService(string pseudo)
+        {
+            String jsonPseudo = convertToJson("pseudo", pseudo);
+            Console.WriteLine(uriApi + "service/" + jsonPseudo);
+            List<Service> lesServices = TraitementRecup<Service>(GET, "service/" + jsonPseudo, null);
+            return lesServices;
+        }
 
         private List<T> TraitementRecup<T>(String methode, String message, String parametres)
         {

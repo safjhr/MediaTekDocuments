@@ -17,20 +17,36 @@ namespace MediaTekDocuments.view
     /// </summary>
     public partial class FrmMediatek : Form
     {
+
         #region Commun
+        private Utilisateur utilisateur;
         private readonly FrmMediatekController controller;
         private readonly BindingSource bdgGenres = new BindingSource();
         private readonly BindingSource bdgPublics = new BindingSource();
         private readonly BindingSource bdgRayons = new BindingSource();
+        private readonly FrmgestionController frmgestionController;
 
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
         /// </summary>
-        internal FrmMediatek()
+        internal FrmMediatek(Utilisateur utilisateur)
         {
             InitializeComponent();
             this.controller = new FrmMediatekController();
+            frmgestionController = new FrmgestionController();
+            this.utilisateur = utilisateur;
+           
         }
+
+        public void SetLimitedAccess()
+        {
+            // Masquer l'onglet Gestion
+            if (tabOngletsApplication.TabPages.Contains(tabPageGestion))
+            {
+                tabOngletsApplication.TabPages.Remove(tabPageGestion);
+            }
+        }
+
 
         /// <summary>
         /// Rempli un des 3 combo (genre, public, rayon)

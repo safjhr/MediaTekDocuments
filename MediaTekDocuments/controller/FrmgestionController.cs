@@ -3,7 +3,7 @@ using MediaTekDocuments.model;
 using MediaTekDocuments.dal;
 using System;
 using System.Collections.Generic;
-using System.Linq;  // Ajoutez cette ligne pour accéder aux méthodes LINQ
+using System.Linq;  
 using System.Text;
 using System.Threading.Tasks;
 
@@ -106,19 +106,23 @@ namespace MediaTekDocuments.controller
 
         public List<DetailsAbonnement> ObtenirRevuesALerter(string idRevue)
         {
-            // Récupérer toutes les revues
             List<DetailsAbonnement> toutesLesAbonnements = FrmgestionAccess.GetInstance().GetDetailAbonnement(idRevue);
-
-            // Filtrer les revues dont l'abonnement se termine dans moins de 30 jours
-            DateTime dateLimite = DateTime.Now.AddDays(30).Date; // Date limite sans heure
-
-            // Filtrer et trier les revues
+            DateTime dateLimite = DateTime.Now.AddDays(30).Date;
             List<DetailsAbonnement> AbonnementALerter = toutesLesAbonnements
-                .Where(r => r.DateFinAbonnement.HasValue && r.DateFinAbonnement.Value.Date <= dateLimite)  // Vérifier si la date est non nulle puis accéder à sa valeur
-                .OrderBy(r => r.DateFinAbonnement.Value)  // Accéder à la valeur de DateFinAbonnement
+                .Where(r => r.DateFinAbonnement.HasValue && r.DateFinAbonnement.Value.Date <= dateLimite)  
+                .OrderBy(r => r.DateFinAbonnement.Value)
                 .ToList();
-
             return AbonnementALerter;
+        }
+
+        public bool GetAllUtilisateur(Utilisateur utilisateur)
+        {
+            return frmgestionaccess.GetAllUtilisateur(utilisateur);
+        }
+
+        public List<Service> GetService(string pseudo)
+        {
+            return frmgestionaccess.GetService(pseudo);
         }
     }
 }

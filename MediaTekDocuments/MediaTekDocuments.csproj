@@ -107,7 +107,16 @@
     <Compile Include="model\CommandeDocument.cs" />
     <Compile Include="model\DetailsAbonnement.cs" />
     <Compile Include="model\DetailsCommande.cs" />
+    <Compile Include="model\DroitAcces.cs" />
+    <Compile Include="model\Service.cs" />
     <Compile Include="model\Suivi.cs" />
+    <Compile Include="model\Utilisateur.cs" />
+    <Compile Include="view\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="view\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="view\FrmGestion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +151,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="view\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\FrmGestion.resx">
       <DependentUpon>FrmGestion.cs</DependentUpon>
     </EmbeddedResource>
