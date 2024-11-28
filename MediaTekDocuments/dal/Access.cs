@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Collections.Generic;
 using MediaTekDocuments.model;
 using MediaTekDocuments.manager;
@@ -7,6 +8,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.Configuration;
 using System.Linq;
+using Serilog;
 
 namespace MediaTekDocuments.dal
 {
@@ -18,7 +20,7 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// adresse de l'API
         /// </summary>
-        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        private static readonly string uriApi = ConfigurationManager.AppSettings["ApiUri"];
         /// <summary>
         /// instance unique de la classe
         /// </summary>
@@ -38,6 +40,8 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// méthode HTTP pour update
 
+        private static readonly string authenticationString = ConfigurationManager.AppSettings["ApiAuthenticationString"];
+
         /// <summary>
         /// Méthode privée pour créer un singleton
         /// initialise l'accès à l'API
@@ -47,13 +51,18 @@ namespace MediaTekDocuments.dal
             String authenticationString;
             try
             {
+                Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Verbose() 
+                    .WriteTo.Console()  
+                    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)  
+                    .CreateLogger();
                 authenticationString = "admin:adminpwd";
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                Environment.Exit(0);
+                Log.Fatal(e, "Erreur lors de l'initialisation de la connexion à l'API.");
+                Environment.Exit(0); 
             }
         }
 
@@ -70,6 +79,8 @@ namespace MediaTekDocuments.dal
             return instance;
         }
 
+
+
         /// <summary>
         /// Retourne tous les genres à partir de la BDD
         /// </summary>
@@ -77,6 +88,7 @@ namespace MediaTekDocuments.dal
         public List<Categorie> GetAllGenres()
         {
             IEnumerable<Genre> lesGenres = TraitementRecup<Genre>(GET, "genre", null);
+            Log.Information("Genres récupérés avec succès, nombre de genres : {Count}", lesGenres.Count());
             return new List<Categorie>(lesGenres);
         }
 
@@ -87,6 +99,7 @@ namespace MediaTekDocuments.dal
         public List<Categorie> GetAllRayons()
         {
             IEnumerable<Rayon> lesRayons = TraitementRecup<Rayon>(GET, "rayon", null);
+            Log.Information("Rayons récupérés avec succès, nombre de rayons : {Count}", lesRayons.Count());
             return new List<Categorie>(lesRayons);
         }
 
@@ -97,6 +110,7 @@ namespace MediaTekDocuments.dal
         public List<Categorie> GetAllPublics()
         {
             IEnumerable<Public> lesPublics = TraitementRecup<Public>(GET, "public", null);
+            Log.Information("Public récupérés avec succès, nombre de publics : {Count}", lesPublics.Count());
             return new List<Categorie>(lesPublics);
         }
 
@@ -107,6 +121,7 @@ namespace MediaTekDocuments.dal
         public List<Livre> GetAllLivres()
         {
             List<Livre> lesLivres = TraitementRecup<Livre>(GET, "livre", null);
+            Log.Information("Récupération des livres réussie. Nombre de livres trouvés : {Count}", lesLivres.Count);
             return lesLivres;
         }
 
@@ -117,6 +132,7 @@ namespace MediaTekDocuments.dal
         public List<Dvd> GetAllDvd()
         {
             List<Dvd> lesDvd = TraitementRecup<Dvd>(GET, "dvd", null);
+            Log.Information("Récupération des Dvd réussie. Nombre de dvd trouvés : {Count}", lesDvd.Count);
             return lesDvd;
         }
 
@@ -127,6 +143,7 @@ namespace MediaTekDocuments.dal
         public List<Revue> GetAllRevues()
         {
             List<Revue> lesRevues = TraitementRecup<Revue>(GET, "revue", null);
+            Log.Information("Récupération des revue réussie. Nombre de revus trouvés : {Count}", lesRevues.Count);
             return lesRevues;
         }
 
@@ -138,6 +155,7 @@ namespace MediaTekDocuments.dal
         /// <returns>Liste d'objets Exemplaire</returns>
         public List<Exemplaire> GetExemplairesRevue(string idDocument)
         {
+            Log.Information("Récupération des exemplaires pour la revue avec ID : {IdDocument}", idDocument);
             String jsonIdDocument = convertToJson("id", idDocument);
             Console.WriteLine(uriApi + "exemplaire/" + jsonIdDocument);
             List<Exemplaire> lesExemplaires = TraitementRecup<Exemplaire>(GET, "exemplaire/" + jsonIdDocument, null);
@@ -159,6 +177,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Erreur lors de l'insertion de l'exemplaire. Message d'erreur : {ErrorMessage}", ex.Message);
                 Console.WriteLine(ex.Message);
             }
             return false;
