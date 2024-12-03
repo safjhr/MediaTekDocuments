@@ -76,11 +76,36 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="modele\Suivitest.cs" />
+    <Compile Include="modele\Servicetest.cs" />
+    <Compile Include="modele\Revuetest.cs" />
+    <Compile Include="modele\RayonTest.cs" />
+    <Compile Include="modele\Publictest.cs" />
+    <Compile Include="modele\LivreDvdtest.cs" />
+    <Compile Include="modele\Livretest.cs" />
+    <Compile Include="modele\Genretest.cs" />
+    <Compile Include="modele\Exemplairetest.cs" />
+    <Compile Include="modele\EtatTest.cs" />
+    <Compile Include="modele\Dvdtest.cs" />
+    <Compile Include="modele\DroitAccestest.cs" />
+    <Compile Include="modele\Documenttest.cs" />
+    <Compile Include="modele\DetailCommandetest.cs" />
+    <Compile Include="modele\DetailAbonnementtest.cs" />
+    <Compile Include="modele\CommandeDocumnttest.cs" />
+    <Compile Include="modele\CommandeTest.cs" />
+    <Compile Include="modele\CategoriesTest.cs" />
+    <Compile Include="modele\Utilisateurtest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MediaTekDocuments\MediaTekDocuments.csproj">
+      <Project>{75de903d-6147-4e14-bbe0-fa20cd1f9840}</Project>
+      <Name>MediaTekDocuments</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
