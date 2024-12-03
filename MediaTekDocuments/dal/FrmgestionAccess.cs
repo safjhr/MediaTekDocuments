@@ -5,6 +5,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using Serilog;
 
 namespace MediaTekDocuments.dal
 {
@@ -13,21 +14,28 @@ namespace MediaTekDocuments.dal
         private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
         private static FrmgestionAccess instance = null;
         private readonly ApiRest api = null;
+        private readonly Access access = null;
         private const string GET = "GET";
         private const string POST = "POST";
         private const string PUT = "PUT";
         private const string DELETE = "DELETE";
         private FrmgestionAccess()
         {
+
             String authenticationString;
             try
             {
+                Log.Logger = new LoggerConfiguration()
+                    .MinimumLevel.Verbose()
+                    .WriteTo.Console()
+                    .WriteTo.File("logs/log.txt")
+                    .CreateLogger();
                 authenticationString = "admin:adminpwd";
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Log.Fatal(e, "Erreur lors de l'initialisation de la connexion à l'API.");
                 Environment.Exit(0);
             }
         }
@@ -48,6 +56,7 @@ namespace MediaTekDocuments.dal
         public List<Commande> GetAllCommandes()
         {
             List<Commande> lesCommandes = TraitementRecup<Commande>(GET, "commande", null);
+            Log.Information("Récupération des Commande réussie. Nombre de commande trouvés : {Count}", lesCommandes.Count);
             return lesCommandes;
         }
 
@@ -58,6 +67,7 @@ namespace MediaTekDocuments.dal
         public List<CommandeDocument> GetAllCommandedocuments()
         {
             List<CommandeDocument> lesCommandesDocuments = TraitementRecup<CommandeDocument>(GET, "commandedocument", null);
+            Log.Information("Récupération des Commandes des Document réussie. Nombre de Commandes de document trouvés : {Count}", lesCommandesDocuments.Count);
             return lesCommandesDocuments;
         }
 
@@ -68,6 +78,7 @@ namespace MediaTekDocuments.dal
         public List<Suivi> GetAllSuivi()
         {
             List<Suivi> lesSuivi = TraitementRecup<Suivi>(GET, "suivi", null);
+            Log.Information("Récupération des suiviss réussie. Nombre de Suivis trouvés : {Count}", lesSuivi.Count);
             return lesSuivi;
         }
 
@@ -78,6 +89,7 @@ namespace MediaTekDocuments.dal
         public List<Livre> GetAllLivres()
         {
             List<Livre> lesLivres = TraitementRecup<Livre>(GET, "livre", null);
+            Log.Information("Récupération des livres réussie. Nombre de livres trouvés : {Count}", lesLivres.Count);
             return lesLivres;
         }
 
@@ -88,6 +100,7 @@ namespace MediaTekDocuments.dal
         public List<DetailsCommande> GetDetailCommande(string idLivreDvd)
         {
             String jsonIdLivreDvd = convertToJson("idLivreDvd", idLivreDvd);
+            Log.Information("URL de l'API pour obtenir les détails de commande : {Url}", uriApi + "detailcommande/" + jsonIdLivreDvd); // Log ajouté
             List<DetailsCommande> lesDetailCommandes = TraitementRecup<DetailsCommande>(GET, "detailcommande/" + jsonIdLivreDvd, null);
             return lesDetailCommandes;
         }
@@ -101,6 +114,7 @@ namespace MediaTekDocuments.dal
         {
             string jsonDetailCommande = JsonConvert.SerializeObject(detailsCommande, new CustomDateTimeConverter());
             Console.WriteLine(uriApi + "detailcommande?champs=" + jsonDetailCommande) ;
+            Log.Information("URL de l'API pour créer un détails de commande : {Url}", uriApi + "detailcommande/" + jsonDetailCommande);
             try
             {
                 List<DetailsCommande> liste = TraitementRecup<DetailsCommande>(POST, "detailcommande", "champs=" + jsonDetailCommande);
@@ -117,6 +131,7 @@ namespace MediaTekDocuments.dal
         {
             string jsonDetailCommande = JsonConvert.SerializeObject(detailsCommande, new CustomDateTimeConverter());
             Console.WriteLine(uriApi + "detailcommande?champs=" + jsonDetailCommande);
+            Log.Information("URL de l'API pour modifier un  détails d'une commande : {Url}", uriApi + "detailcommande/" + jsonDetailCommande);
             try
             {
                 List<DetailsCommande> liste = TraitementRecup<DetailsCommande>(PUT, "detailcommande", "champs=" + jsonDetailCommande);
@@ -133,6 +148,7 @@ namespace MediaTekDocuments.dal
         {
             string jsonDetailCommande = JsonConvert.SerializeObject(detailsCommande, new CustomDateTimeConverter());
             Console.WriteLine(uriApi + "detailcommande/" + jsonDetailCommande);
+            Log.Information("URL de l'API pour Supprimer les détails d'une commande : {Url}", uriApi + "detailcommande/" + jsonDetailCommande);
             try
             {
                 List<DetailsCommande> liste = TraitementRecup<DetailsCommande>(DELETE, "detailcommande/" + jsonDetailCommande, null);
@@ -140,6 +156,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Erreur lors de la suppression du détail d'une commande.");
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -148,6 +165,7 @@ namespace MediaTekDocuments.dal
         public List<DetailsAbonnement> GetDetailAbonnement(string idRevue)
         {
             String jsonIdRevue = convertToJson("idRevue", idRevue);
+            Log.Information("URL de l'API pour obtenir les détails d'abonnement: {Url}", uriApi + "detailabonnement/" + jsonIdRevue);
             Console.WriteLine(uriApi + "detailabonnement/" + jsonIdRevue);
             List<DetailsAbonnement> lesDetailAbonnements = TraitementRecup<DetailsAbonnement>(GET, "detailabonnement/" + jsonIdRevue, null);
             return lesDetailAbonnements;
@@ -156,6 +174,7 @@ namespace MediaTekDocuments.dal
         public bool CreerDetailAbonnement(DetailsAbonnement detailsAbonnement)
         {
             string jsonDetailAbonnement = JsonConvert.SerializeObject(detailsAbonnement, new CustomDateTimeConverter());
+            Log.Information("URL de l'API pour créer un détail d'abonnement: {Url}", uriApi + "detailabonnement?champs=" + jsonDetailAbonnement);
             Console.WriteLine(uriApi + "detailabonnement?champs=" + jsonDetailAbonnement);
             try
             {
@@ -172,6 +191,7 @@ namespace MediaTekDocuments.dal
         public bool SupprimerDetailAbonnement(DetailsAbonnement detailsAbonnement)
         {
             string jsonDetailAbonnement = JsonConvert.SerializeObject(detailsAbonnement, new CustomDateTimeConverter());
+            Log.Information("URL de l'API pour supprimer un détail d'abonnement: {Url}", uriApi + "detailabonnement/" + jsonDetailAbonnement);
             Console.WriteLine(uriApi + "detailabonnement/" + jsonDetailAbonnement);
             try
             {
@@ -196,6 +216,7 @@ namespace MediaTekDocuments.dal
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "Erreur lors de l'insertion d'un utilisateur. Message d'erreur : {ErrorMessage}", ex.Message);
                 Console.WriteLine(ex.Message);
             }
             return false;
@@ -203,6 +224,7 @@ namespace MediaTekDocuments.dal
 
         public List<Service> GetService(string pseudo)
         {
+            Log.Information("Récupération des service d'un utilisateur avec un pseudo : {pseudo}", pseudo);
             String jsonPseudo = convertToJson("pseudo", pseudo);
             Console.WriteLine(uriApi + "service/" + jsonPseudo);
             List<Service> lesServices = TraitementRecup<Service>(GET, "service/" + jsonPseudo, null);
