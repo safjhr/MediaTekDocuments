@@ -11,7 +11,7 @@ namespace MediaTekDocuments.dal
 {
     class FrmgestionAccess
     {
-        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        private static readonly string uriApi = "http://mediatekdocuments.ultinet.fr/rest_mediatekdocuments/";
         private static FrmgestionAccess instance = null;
         private readonly ApiRest api = null;
         private readonly Access access = null;
@@ -30,7 +30,7 @@ namespace MediaTekDocuments.dal
                     .WriteTo.Console()
                     .WriteTo.File("logs/log.txt")
                     .CreateLogger();
-                authenticationString = "admin:adminpwd";
+                authenticationString = "safiya:Ds0oue9r@@";
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
             catch (Exception e)
@@ -99,7 +99,7 @@ namespace MediaTekDocuments.dal
         /// <returns>Liste d'objets CommandeDocument</returns>
         public List<DetailsCommande> GetDetailCommande(string idLivreDvd)
         {
-            String jsonIdLivreDvd = convertToJson("idLivreDvd", idLivreDvd);
+            String jsonIdLivreDvd = ConvertToJson("idLivreDvd", idLivreDvd);
             Log.Information("URL de l'API pour obtenir les détails de commande : {Url}", uriApi + "detailcommande/" + jsonIdLivreDvd); // Log ajouté
             List<DetailsCommande> lesDetailCommandes = TraitementRecup<DetailsCommande>(GET, "detailcommande/" + jsonIdLivreDvd, null);
             return lesDetailCommandes;
@@ -164,7 +164,7 @@ namespace MediaTekDocuments.dal
 
         public List<DetailsAbonnement> GetDetailAbonnement(string idRevue)
         {
-            String jsonIdRevue = convertToJson("idRevue", idRevue);
+            String jsonIdRevue = ConvertToJson("idRevue", idRevue);
             Log.Information("URL de l'API pour obtenir les détails d'abonnement: {Url}", uriApi + "detailabonnement/" + jsonIdRevue);
             Console.WriteLine(uriApi + "detailabonnement/" + jsonIdRevue);
             List<DetailsAbonnement> lesDetailAbonnements = TraitementRecup<DetailsAbonnement>(GET, "detailabonnement/" + jsonIdRevue, null);
@@ -225,7 +225,7 @@ namespace MediaTekDocuments.dal
         public List<Service> GetService(string pseudo)
         {
             Log.Information("Récupération des service d'un utilisateur avec un pseudo : {pseudo}", pseudo);
-            String jsonPseudo = convertToJson("pseudo", pseudo);
+            String jsonPseudo = ConvertToJson("pseudo", pseudo);
             Console.WriteLine(uriApi + "service/" + jsonPseudo);
             List<Service> lesServices = TraitementRecup<Service>(GET, "service/" + jsonPseudo, null);
             return lesServices;
@@ -258,7 +258,7 @@ namespace MediaTekDocuments.dal
             return liste;
         }
 
-        private String convertToJson(String key, String value)
+        private String ConvertToJson(String key, String value)
         {
             return $"{{\"{key}\": \"{value}\"}}";
         }
@@ -269,7 +269,7 @@ namespace MediaTekDocuments.dal
         /// <param name="nom"></param>
         /// <param name="valeur"></param>
         /// <returns>couple au format json</returns>
-        private String convertToJson(Object nom, Object valeur)
+        private String ConvertToJson(Object nom, Object valeur)
         {
             Dictionary<Object, Object> dictionary = new Dictionary<Object, Object>();
             dictionary.Add(nom, valeur);

@@ -56,7 +56,7 @@ namespace MediaTekDocuments.dal
                     .WriteTo.Console()
                     .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
                     .CreateLogger();
-                authenticationString = "admin:adminpwd";
+                authenticationString = "safiya:Ds0oue9r@@";
                 api = ApiRest.GetInstance(uriApi, authenticationString);
             }
             catch (Exception e)
@@ -156,7 +156,7 @@ namespace MediaTekDocuments.dal
         public List<Exemplaire> GetExemplairesRevue(string idDocument)
         {
             Log.Information("Récupération des exemplaires pour la revue avec ID : {IdDocument}", idDocument);
-            String jsonIdDocument = convertToJson("id", idDocument);
+            String jsonIdDocument = ConvertToJson("id", idDocument);
             Console.WriteLine(uriApi + "exemplaire/" + jsonIdDocument);
             List<Exemplaire> lesExemplaires = TraitementRecup<Exemplaire>(GET, "exemplaire/" + jsonIdDocument, null);
             return lesExemplaires;
@@ -229,7 +229,7 @@ namespace MediaTekDocuments.dal
         /// <param name="nom"></param>
         /// <param name="valeur"></param>
         /// <returns>couple au format json</returns>
-        private String convertToJson(Object nom, Object valeur)
+        private String ConvertToJson(Object nom, Object valeur)
         {
             Dictionary<Object, Object> dictionary = new Dictionary<Object, Object>();
             dictionary.Add(nom, valeur);

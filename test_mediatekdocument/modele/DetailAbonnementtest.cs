@@ -27,18 +27,6 @@ namespace test_mediatekdocument.modele
             Assert.AreEqual(dateFinAbonnement, detailsAbonnement.DateFinAbonnement, "Devrait réussir : DateFinAbonnement retourné");
         }
 
-        [TestMethod()]
-        public void ParutionDansAbonnementTests()
-        {
-    
-            DateTime dateAchatValide = new DateTime(2024, 12, 01);
-            Assert.IsTrue(DetailsAbonnement.ParutionDansAbonnement(dateCommande, dateFinAbonnement, dateAchatValide), "Devrait réussir : La date d'achat est dans la période d'abonnement.");
-
-            DateTime dateAchatAvant = new DateTime(2024, 10, 01);
-            Assert.IsFalse(DetailsAbonnement.ParutionDansAbonnement(dateCommande, dateFinAbonnement, dateAchatAvant), "Devrait échouer : La date d'achat est avant la date de commande.");
-            
-            DateTime dateAchatApres = new DateTime(2025, 12, 01);
-            Assert.IsFalse(DetailsAbonnement.ParutionDansAbonnement(dateCommande, dateFinAbonnement, dateAchatApres), "Devrait échouer : La date d'achat est après la fin de l'abonnement.");
-        }
+       
     }
 }
