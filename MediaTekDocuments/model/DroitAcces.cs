@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MediaTekDocuments.model
 {
-    public static class DroitAcces
+    public static class DroitsAcces
     {
         public const string Complet = "Complet";
         public const string Consultation = "Consultation";

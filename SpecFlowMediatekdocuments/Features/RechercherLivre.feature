@@ -1,32 +1,28 @@
-﻿
-Feature: Recherche dans l'onglet Livres
+﻿Feature: Recherche dans l'onglet Livres
   Afin de trouver rapidement un livre
   En tant qu'utilisateur
   Je veux pouvoir rechercher un livre par différents critères.
 
-  Scenario: Rechercher un livre par numéro
-    Given la liste des livres est chargée
-    When je saisis "00001" dans le champ de recherche par numéro
-    Then seul le livre avec le numéro "00001" est affiché
+Scenario: Chercher un livre avec son numero dans txbLivresNumRecherche
+	Given Je saisis la valeur 00001 dans txbLivresNumRecherche
+	When Je clic sur le bouton Rechercher
+	Then Les informations détaillées affichent le titre 'Quand sort la recluse'
 
-  Scenario: Rechercher un livre par titre partiel
-    Given la liste des livres est chargée
-    When je saisis "Quand sort la recluse" dans le champ de recherche par titre
-    Then tous les livres contenant "Quand sort la recluse" dans le titre sont affichés
+Scenario: Chercher une liste de livres avec le genre dans cbxLivresGenres
+	Given Je sélectionne la valeur 'Humour' dans cbxLivresGenres
+	Then Le résultat est 6 livres dans dgvLivresListe
 
-  Scenario: Rechercher un livre par genre
-    Given la liste des livres est chargée
-    When je sélectionne "Fantastique" dans la liste des genres
-    Then seuls les livres du genre "Fantastique" sont affichés
+Scenario: Chercher une liste de livres avec le public dans cbxLivresPublics
+	Given Je sélectionne la valeur 'Jeunesse' dans cbxLivresPublics
+	Then Le résultat est 1 livres dans dgvLivresListe
 
- Scenario: Rechercher un livre par public
-    Given la liste des livres est chargée
-    When je sélectionne "Adultes" dans la liste des public
-    Then seuls les livres du public "Adultes" sont affichés
+Scenario: Chercher une liste de livres avec le rayon dans cbxLivresRayons
+	Given Je sélectionne la valeur 'Bd Adultes' dans cbxLivresRayons
+	Then Le résultat est 4 livre
 
- Scenario: Rechercher un livre par rayon
-    Given la liste des livres est chargée
-    When je sélectionne "Magazines" dans la liste des rayons
-    Then seuls les livres du rayon "Magazines" sont affichés
+Scenario: Chercher un livre avec son titre dans txbLivresTitreRecherche
+	Given Je saisis la valeur 'Quand sort la recluse' dans txbLivresTitreRecherche
+	When Je clic sur le bouton Rechercher
+	Then Les informations détaillées affichent le titre 'Et je danse'
 
   

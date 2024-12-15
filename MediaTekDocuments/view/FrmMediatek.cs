@@ -19,28 +19,28 @@ namespace MediaTekDocuments.view
     {
 
         #region Commun
-        private Utilisateur utilisateur;
+        
         private readonly FrmMediatekController controller;
         private readonly BindingSource bdgGenres = new BindingSource();
         private readonly BindingSource bdgPublics = new BindingSource();
         private readonly BindingSource bdgRayons = new BindingSource();
         private readonly FrmgestionController frmgestionController;
 
+        private readonly Service service = null;
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
         /// </summary>
-        internal FrmMediatek(Utilisateur utilisateur)
+        public FrmMediatek(Service service)
         {
             InitializeComponent();
             this.controller = new FrmMediatekController();
-            frmgestionController = new FrmgestionController();
-            this.utilisateur = utilisateur;
+            this.frmgestionController = new FrmgestionController();
+            this.service = service;
            
         }
 
         public void SetLimitedAccess()
-        {
-            // Masquer l'onglet Gestion
+        {   
             if (tabOngletsApplication.TabPages.Contains(tabPageGestion))
             {
                 tabOngletsApplication.TabPages.Remove(tabPageGestion);

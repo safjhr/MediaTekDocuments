@@ -120,9 +120,9 @@ namespace MediaTekDocuments.controller
             return frmgestionaccess.GetAllUtilisateur(utilisateur);
         }
 
-        public List<Service> GetService(string pseudo)
+        public List<Service> GetService(Utilisateur utilisateur)
         {
-            return frmgestionaccess.GetService(pseudo);
+            return frmgestionaccess.GetService(utilisateur);
         }
     }
 }

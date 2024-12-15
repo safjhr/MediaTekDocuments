@@ -12,15 +12,15 @@ namespace MediaTekDocuments.model
         public string Password { get; }
         public int IdService { get; set; }
         public string NomService { get; set; }
-        public string DroitAcces { get; set; }
+        public string DroitsAcces { get; set; }
 
-        public Service(string pseudo,string password, int idService, string nomService, string droitAcces)
+        public Service(string pseudo,string password, int idService, string nomService, string droitsAcces)
         {
             this.Pseudo = pseudo;
             this.Password = password;
             this.IdService = idService;
             this.NomService = nomService;
-            this.DroitAcces = droitAcces;
+            this.DroitsAcces = droitsAcces;
         }
     }
 }

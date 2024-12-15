@@ -23,59 +23,63 @@ namespace MediaTekDocuments.view
             string pseudo = txtutilisateur.Text;
             string password = txtmdp.Text;
 
-            Utilisateur utilisateur = new Utilisateur(pseudo, password);
-
-
-            if (frmgestionController.GetAllUtilisateur(utilisateur))
+            try
             {
-                List<Service> services = frmgestionController.GetService(pseudo); // Récupère la liste des services
-                Service service = services?.FirstOrDefault();
+                Utilisateur utilisateur = new Utilisateur(pseudo, password);
+                List<Service> services = frmgestionController.GetService(utilisateur);
 
-                if (service != null)
+                if (services != null && services.Count > 0)
                 {
-                    switch (service.IdService)
+                    Service service = services.FirstOrDefault();
+
+                    if (service != null)
                     {
-                        case 1:
-                            FrmMediatek frmAdmin = new FrmMediatek(utilisateur);
-                            this.Hide();
-                            frmAdmin.ShowDialog();
-                            this.Close();
-                            break;
+                        switch (service.IdService)
+                        {
+                            case 1:
+                                FrmMediatek frmAdmin = new FrmMediatek(service);
+                                this.Hide();
+                                frmAdmin.ShowDialog();
+                                
+                                break;
 
-                        case 2:
-                            FrmMediatek frmPret = new FrmMediatek(utilisateur);
-                            frmPret.SetLimitedAccess(); // Activer l'accès limité
-                            this.Hide();
-                            frmPret.ShowDialog();
-                            this.Close();
-                            break;
+                            case 2:
+                                FrmMediatek frmPret = new FrmMediatek(service);
+                                frmPret.SetLimitedAccess(); 
+                                this.Hide();
+                                frmPret.ShowDialog();
+                                this.Close();
+                                break;
 
-                        case 3:
-                            MessageBox.Show("Vous n'avez pas les droits nécessaires pour accéder à cette application.", "Accès refusé", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            Application.Exit();
-                            break;
+                            case 3:
+                                MessageBox.Show("Vous n'avez pas les droits nécessaires pour accéder à cette application.", "Accès refusé", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                Application.Exit();
+                                break;
 
-                        case 4:
-                            FrmMediatek frmAdminFull = new FrmMediatek(utilisateur);
-                            this.Hide();
-                            frmAdminFull.ShowDialog();
-                            this.Close();
-                            break;
+                            case 4:
+                                FrmMediatek frmAdminFull = new FrmMediatek(service);
+                                this.Hide();
+                                frmAdminFull.ShowDialog();
+                                this.Close();
+                                break;
 
-                        default:
-                            MessageBox.Show("Type de service inconnu.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
+                            default:
+                                MessageBox.Show("Type de service inconnu.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                break;
+                        }
                     }
                 }
                 else
                 {
                     MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur : {ex.Message}", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-
     }
+    
 }

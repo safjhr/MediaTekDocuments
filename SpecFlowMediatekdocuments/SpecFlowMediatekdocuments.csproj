@@ -1,24 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net4.0-windows</TargetFramework>
+		<TargetFramework>net5.0-windows</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
-    <PackageReference Include="SpecRun.SpecFlow" Version="3.9.31" />
-    <PackageReference Include="FluentAssertions" Version="7.0.0" />
-  </ItemGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>C:\Users\samsam\Documents\projetexam\MediaTekDocuments\MediaTekDocuments\SpecFlowMediatekDocuments\SpecFlowMediatekDocuments.xml</DocumentationFile>
+	  <OutputPath>C:\Users\samsam\Documents\projetexam\MediaTekDocuments\MediaTekDocuments\MediaTekDocuments\bin\Debug\</OutputPath>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Drivers\" />
-    <Folder Include="Hooks\" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+		<PackageReference Include="NUnit" Version="3.13.3" />
+		<PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
+		<PackageReference Include="SpecRun.SpecFlow" Version="3.9.31" />
+		<PackageReference Include="FluentAssertions" Version="6.10.0" />
+	</ItemGroup>
+	
 
-  <ItemGroup>
-    <ProjectReference Include="..\MediaTekDocuments\MediaTekDocuments.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Drivers\" />
+		<Folder Include="Hooks\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MediaTekDocuments\MediaTekDocuments.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -1,121 +1,122 @@
-﻿using System;
-using TechTalk.SpecFlow;
+﻿using MediaTekDocuments.model;
 using MediaTekDocuments.view;
+using NUnit.Framework;
+using System;
 using System.Windows.Forms;
-
+using TechTalk.SpecFlow;
 
 namespace SpecFlowMediatekdocuments.Steps
 {
     [Binding]
     public class RechercheDansLOngletLivresSteps
     {
-        private Utilisateur utilisateur;
-        private readonly FrmMediatek frmMediatek;
-        public RechercheDansLOngletLivresSteps()
+        private readonly FrmMediatek frmMediatek = new FrmMediatek(null);
+
+        /// <summary>
+        /// Récupère la valeur de l'id du livre saisi
+        /// </summary>
+        /// <param name="valeur"></param>
+        [Given(@"Je saisis la valeur (.*) dans txbLivresNumRecherche")]
+        public void GivenJeSaisisLaValeurDansTxbLivresNumRecherche(string valeur)
         {
-            utilisateur = new Utilisateur(); 
-            frmMediatek = new FrmMediatek(utilisateur);
-        }
-        [Given(@"la liste des livres est chargée")]
-        public void GivenLaListeDesLivresEstChargee()
-        {
-            livresAffiches = ChargerTousLesLivres();
-        }
-        
-        [When(@"je saisis ""(.*)"" dans le champ de recherche par numéro")]
-        public void WhenJeSaisisDansLeChampDeRechercheParNumero(int p0)
-        {
-            livresAffiches = RechercherParNumero(numero);
-        }
-        
-        [When(@"je saisis ""(.*)"" dans le champ de recherche par titre")]
-        public void WhenJeSaisisDansLeChampDeRechercheParTitre(string p0)
-        {
-            livresAffiches = RechercherParTitre(titre);
-        }
-        
-        [When(@"je sélectionne ""(.*)"" dans la liste des genres")]
-        public void WhenJeSelectionneDansLaListeDesGenres(string p0)
-        {
-            livresAffiches = RechercherParGenre(genre);
-        }
-        
-        [When(@"je sélectionne ""(.*)"" dans la liste des public")]
-        public void WhenJeSelectionneDansLaListeDesPublic(string p0)
-        {
-            livresAffiches = RechercherParPublic(lePublic);
-        }
-        
-        [When(@"je sélectionne ""(.*)"" dans la liste des rayons")]
-        public void WhenJeSelectionneDansLaListeDesRayons(string p0)
-        {
-            livresAffiches = RechercherParRayon(rayon);
-        }
-        
-        [Then(@"seul le livre avec le numéro ""(.*)"" est affiché")]
-        public void ThenSeulLeLivreAvecLeNumeroEstAffiche(string numero)
-        {
-            Assert.AreEqual(1, livresAffiches.Count, "Un seul livre devrait être affiché.");
-            Assert.AreEqual(numero, livresAffiches.First().Id, "Le numéro du livre affiché devrait correspondre.");
-        }
-        
-        [Then(@"tous les livres contenant ""(.*)"" dans le titre sont affichés")]
-        public void ThenTousLesLivresContenantDansLeTitreSontAffiches(string titre)
-        {
-            Assert.IsTrue(livresAffiches.All(l => l.Titre.Contains(titre, StringComparison.OrdinalIgnoreCase)),
-             "Tous les livres affichés devraient contenir le titre recherché.");
-        }
-        
-        [Then(@"seuls les livres du genre ""(.*)"" sont affichés")]
-        public void ThenSeulsLesLivresDuGenreSontAffiches(string genre)
-        {
-            Assert.IsTrue(livresAffiches.All(l => l.Genre == genre), "Tous les livres affichés devraient appartenir au genre spécifié.");
-        }
-        
-        [Then(@"seuls les livres du public ""(.*)"" sont affichés")]
-        public void ThenSeulsLesLivresDuPublicSontAffiches(string lePublic)
-        {
-            Assert.IsTrue(livresAffiches.All(l => l.Public == lePublic), "Tous les livres affichés devraient appartenir au public spécifié.");
-        }
-        
-        [Then(@"seuls les livres du rayon ""(.*)"" sont affichés")]
-        public void ThenSeulsLesLivresDuRayonSontAffiches(string rayon)
-        {
-            Assert.IsTrue(livresAffiches.All(l => l.Rayon == rayon), "Tous les livres affichés devraient appartenir au rayon spécifié.");
+            TextBox TxtValeur = (TextBox)frmMediatek.Controls["tabOngletsApplication"].Controls["tabLivres"].Controls["grpLivresRecherche"].Controls["txbLivresNumRecherche"];
+            frmMediatek.Visible = true;
+            TxtValeur.Text = valeur;
         }
 
-        private List<Livre> ChargerTousLesLivres()
+        /// <summary>
+        /// Récupère le nombre de lignes affichées dans la liste des livres
+        /// Selon la valeur sélectionnée dans la comboBox du Genre
+        /// </summary>
+        /// <param name="listeAttendue">Nombre de lignes attendues dans la datagrid</param>
+        [Given(@"Je sélectionne la valeur '(.*)' dans cbxLivresGenres")]
+        public void GivenJeSelectionneLaValeurDansCbxLivresGenres(string listeAttendue)
         {
-            return new List<Livre>
-        {
-            new Livre("00001", "Quand sort la recluse", "Policier", "Adultes", "Policiers français étrangers"),
-            
-        };
+            ComboBox cbxLivresGenres = (ComboBox)frmMediatek.Controls["tabOngletsApplication"].Controls["tabLivres"].Controls["grpLivresInfos"].Controls["cbxLivresGenres"];
+            cbxLivresGenres.SelectedItem = listeAttendue;
         }
 
-        private List<Livre> RechercherParNumero(string numero)
+        /// <summary>
+        /// Récupère le nombre de lignes affichées dans la liste des livres
+        /// Selon la valeur sélectionnée dans la comboBox du Public
+        /// </summary>
+        /// <param name="listeAttendue">Nombre de lignes attendues dans la datagrid</param>
+        [Given(@"Je sélectionne la valeur '(.*)' dans cbxLivresPublics")]
+        public void GivenJeSelectionneLaValeurDansCbxLivresPublics(string listeAttendue)
         {
-            return ChargerTousLesLivres().FindAll(l => l.Id == numero);
+            ComboBox cbxLivresPublics = (ComboBox)frmMediatek.Controls["tabOngletsApplication"].Controls["tabLivres"].Controls["grpLivresInfos"].Controls["cbxLivresPublics"];
+            cbxLivresPublics.SelectedItem = listeAttendue;
         }
 
-        private List<Livre> RechercherParTitre(string titre)
+        /// <summary>
+        /// Récupère le nombre de lignes affichées dans la liste des livres
+        /// Selon la valeur sélectionnée dans la comboBox du Rayon
+        /// </summary>
+        /// <param name="listeAttendue">Nombre de lignes attendues dans la datagrid</param>
+        [Given(@"Je sélectionne la valeur '(.*)' dans cbxLivresRayons")]
+        public void GivenJeSelectionneLaValeurDansCbxLivresRayons(string listeAttendue)
         {
-            return ChargerTousLesLivres().FindAll(l => l.Titre.Contains(titre, StringComparison.OrdinalIgnoreCase));
+            ComboBox cbxLivresRayons = (ComboBox)frmMediatek.Controls["tabOngletsApplication"].Controls["tabLivres"].Controls["grpLivresInfos"].Controls["cbxLivresRayons"];
+            cbxLivresRayons.SelectedItem = listeAttendue;
         }
 
-        private List<Livre> RechercherParGenre(string genre)
+        /// <summary>
+        /// Récupère le titre du livre saisi
+        /// </summary>
+        /// <param name="titreAttendu">Récupère le titre attendu</param>
+        [Given(@"Je saisis la valeur '(.*)' dans txbLivresTitreRecherche")]
+        public void GivenJeSaisisLaValeurDansTxbLivresTitreRecherche(string titreAttendu)
         {
-            return ChargerTousLesLivres().FindAll(l => l.Genre == genre);
+            TextBox txbLivresTitre = (TextBox)frmMediatek.Controls["tabOngletsApplication"].Controls["tabLivres"].Controls["grpLivresInfos"].Controls["txbLivresTitre"];
+            string titreObtenu = txbLivresTitre.Text;
+            Assert.AreEqual(titreAttendu, titreObtenu);
         }
 
-        private List<Livre> RechercherParPublic(string lePublic)
+        /// <summary>
+        /// Evènement du clic sur le bouton de recherche
+        /// </summary>
+        [When(@"Je clic sur le bouton Rechercher")]
+        public void WhenJeClicSurLeBoutonRechercher()
         {
-            return ChargerTousLesLivres().FindAll(l => l.Public == lePublic);
+            Button btnLivresNumRecherche = (Button)frmMediatek.Controls["tabOngletsApplication"].Controls["tabLivres"].Controls["grpLivresRecherche"].Controls["btnLivresNumRecherche"];
+            frmMediatek.Visible = true;
+            btnLivresNumRecherche.PerformClick();
         }
 
-        private List<Livre> RechercherParRayon(string rayon)
+        /// <summary>
+        /// Affichage du titre dans les informations détaillées 
+        /// </summary>
+        /// <param name="titreAttendu">Récupère le titre attendu</param>
+        [Then(@"Les informations détaillées affichent le titre '(.*)'")]
+        public void ThenLesInformationsDetailleesAffichentLeTitre(string titreAttendu)
         {
-            return ChargerTousLesLivres().FindAll(l => l.Rayon == rayon);
+            TextBox txbLivresTitre = (TextBox)frmMediatek.Controls["tabOngletsApplication"].Controls["tabLivres"].Controls["grpLivresInfos"].Controls["txbLivresTitre"];
+            string titreObtenu = txbLivresTitre.Text;
+            Assert.AreEqual(titreAttendu, titreObtenu);
+        }
+
+        /// <summary>
+        /// Récupère le nombre de lignes attendues 
+        /// </summary>
+        /// <param name="listeAttendue">Nombre de lignes attendues dans la datagrid</param>
+        [Then(@"Le résultat est (.*) livres dans dgvLivresListe")]
+        public void ThenLeResultatEstLivresDansDgvLivresListe(int listeAttendue)
+        {
+            DataGridView dgvLivresListe = (DataGridView)frmMediatek.Controls["tabOngletsApplication"].Controls["tabLivres"].Controls["grpLivresRecherche"].Controls["cbxLivresRecherchesGenres"];
+            int listeObtenue = dgvLivresListe.Rows.Count;
+            Assert.AreEqual(listeAttendue, listeObtenue);
+        }
+
+        /// <summary>
+        /// Récupère le nombre de lignes attendues 
+        /// </summary>
+        /// <param name="listeAttendue">Nombre de lignes attendues dans la datagrid</param>
+        [Then(@"Le résultat est (.*) livre")]
+        public void ThenLeResultatEstLivre(int listeAttendue)
+        {
+            DataGridView dgvLivresListe = (DataGridView)frmMediatek.Controls["tabOngletsApplication"].Controls["tabLivres"].Controls["grpLivresRecherche"].Controls["cbxLivresRayons"];
+            int listeObtenue = dgvLivresListe.Rows.Count;
+            Assert.AreEqual(listeAttendue, listeObtenue);
         }
     }
 }

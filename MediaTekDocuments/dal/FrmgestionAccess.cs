@@ -11,7 +11,7 @@ namespace MediaTekDocuments.dal
 {
     class FrmgestionAccess
     {
-        private static readonly string uriApi = "http://mediatekdocuments.ultinet.fr/rest_mediatekdocuments/";
+        private static readonly string uriApi = "https://mediatekdocuments.ultinet.fr/rest_mediatekdocuments/";
         private static FrmgestionAccess instance = null;
         private readonly ApiRest api = null;
         private readonly Access access = null;
@@ -222,12 +222,12 @@ namespace MediaTekDocuments.dal
             return false;
         }
 
-        public List<Service> GetService(string pseudo)
+        public List<Service> GetService(Utilisateur utilisateur)
         {
-            Log.Information("Récupération des service d'un utilisateur avec un pseudo : {pseudo}", pseudo);
-            String jsonPseudo = ConvertToJson("pseudo", pseudo);
-            Console.WriteLine(uriApi + "service/" + jsonPseudo);
-            List<Service> lesServices = TraitementRecup<Service>(GET, "service/" + jsonPseudo, null);
+            Log.Information("Récupération des service d'un utilisateur avec un pseudo : {pseudo}", utilisateur);
+            String jsonUtilisateur = JsonConvert.SerializeObject(utilisateur);
+            Console.WriteLine(uriApi + "service/" + jsonUtilisateur);
+            List<Service> lesServices = TraitementRecup<Service>(GET, "service/" + jsonUtilisateur, null);
             return lesServices;
         }
 
@@ -258,10 +258,6 @@ namespace MediaTekDocuments.dal
             return liste;
         }
 
-        private String ConvertToJson(String key, String value)
-        {
-            return $"{{\"{key}\": \"{value}\"}}";
-        }
 
         // <summary>
         /// Convertit en json un couple nom/valeur

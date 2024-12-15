@@ -10,9 +10,9 @@ namespace test_mediatekdocument.modele
         private const string password = "password123";
         private const int idService = 1;
         private const string nomService = "Administratif";
-        private const string droitAcces = "Complet";
+        private const string droitsAcces = "Complet";
 
-        private readonly Service service = new Service(pseudo, password, idService, nomService, droitAcces);
+        private readonly Service service = new Service(pseudo, password, idService, nomService, droitsAcces);
 
         [TestMethod]
         public void TestConstructor()
@@ -21,7 +21,7 @@ namespace test_mediatekdocument.modele
             Assert.AreEqual(password, service.Password, "Devrait réussir : Password retourné");
             Assert.AreEqual(idService, service.IdService, "Devrait réussir : IdService retourné");
             Assert.AreEqual(nomService, service.NomService, "Devrait réussir : NomService retourné");
-            Assert.AreEqual(droitAcces, service.DroitAcces, "Devrait réussir : DroitAcces retourné");
+            Assert.AreEqual(droitsAcces, service.DroitsAcces, "Devrait réussir : DroitAcces retourné");
         }
     }
 }
