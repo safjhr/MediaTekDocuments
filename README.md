@@ -65,6 +65,17 @@ Enfin, 3 tables permettent de mémoriser les données concernant les commandes d
 <br>
 La base de données est remplie de quelques exemples pour pouvoir tester son application. Dans les champs image (de Document) et photo (de Exemplaire) doit normalement se trouver le chemin complet vers l'image correspondante. Pour les tests, vous devrez créer un dossier, le remplir de quelques images et mettre directement les chemins dans certains tuples de la base de données qui, pour le moment, ne contient aucune image.<br>
 Lorsque l'application sera opérationnelle, c'est le personnel de la médiathèque qui sera en charge de saisir les informations des documents.
+
+Page gestion :
+
+lorsqu'on appuie sur le bouton gestion dans l'onglet gestion, on tombe sur une page avec trois onglets :
+
+Onglet livre et Dvd:
+lors de la rechercher d'un livre/dvd, on obtiens les informations du livre/dvd et les details de commmande (date achat, montant, nbexmplaire =. On peut modfier, surpprimer et ajouter une commande.
+
+Onglet Revue :
+Lors de la rechercher d'une revue on obtiens les detaille de la revue et les abonnment de celle-ci. on peut ajouer et supprimer une revue.
+
 ## L'API REST
 L'accès à la BDD se fait à travers une API REST protégée par une authentification basique.<br>
 Le code de l'API se trouve ici :<br>
