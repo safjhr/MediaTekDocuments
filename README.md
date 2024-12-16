@@ -66,15 +66,26 @@ Enfin, 3 tables permettent de mémoriser les données concernant les commandes d
 La base de données est remplie de quelques exemples pour pouvoir tester son application. Dans les champs image (de Document) et photo (de Exemplaire) doit normalement se trouver le chemin complet vers l'image correspondante. Pour les tests, vous devrez créer un dossier, le remplir de quelques images et mettre directement les chemins dans certains tuples de la base de données qui, pour le moment, ne contient aucune image.<br>
 Lorsque l'application sera opérationnelle, c'est le personnel de la médiathèque qui sera en charge de saisir les informations des documents.
 
-Page gestion :
+<h3>Page gestion :</h3>
 
-lorsqu'on appuie sur le bouton gestion dans l'onglet gestion, on tombe sur une page avec trois onglets :
+<br>lorsqu'on appuie sur le bouton gestion dans l'onglet gestion, on tombe sur une page avec trois onglets :</br>
 
-Onglet livre et Dvd:
+### Onglet livre et Dvd:
 lors de la rechercher d'un livre/dvd, on obtiens les informations du livre/dvd et les details de commmande (date achat, montant, nbexmplaire =. On peut modfier, surpprimer et ajouter une commande.
+![Capture d'écran 2024-11-19 123454](https://github.com/user-attachments/assets/24db463b-56ac-477e-a239-b4b07de5f5b4)
 
-Onglet Revue :
+![Capture d'écran 2024-11-19 123819](https://github.com/user-attachments/assets/ec3d3783-cac2-456c-a3d9-6d116a22ecf3)
+
+
+### Onglet Revue :
 Lors de la rechercher d'une revue on obtiens les detaille de la revue et les abonnment de celle-ci. on peut ajouer et supprimer une revue.
+![Capture d'écran 2024-11-20 080237](https://github.com/user-attachments/assets/632799de-1d42-465a-b8f2-dd4312fac305)
+
+<h3>Authentification :</h3>
+
+J'ai ajouté une form d'authentification avec un pseudo et un password 
+
+![Capture d'écran 2024-12-15 133435](https://github.com/user-attachments/assets/fa704ebd-214e-43cc-9dcc-acd4db4826c6)
 
 ## L'API REST
 L'accès à la BDD se fait à travers une API REST protégée par une authentification basique.<br>
